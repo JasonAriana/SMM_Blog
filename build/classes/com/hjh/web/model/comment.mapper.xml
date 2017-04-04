@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hjh.web.model.CommentMapper">
+	<select id="getList" resultType="Comment">
+		select * from comment order by addDate desc
+	</select>
+	<select id="getListByPostId" resultType="Comment">
+		select * from comment where postId = #{postId} order by addDate desc
+	</select>
+	<select id="getCommentById" resultType="Comment">
+		select * from comment where id = #{id}
+	</select>
+	<select id="getNumByPostId" resultType="java.lang.Integer">
+		select count(*) from comment where postId = #{postId}
+	</select>
+	<insert id="addComment" parameterType="com.hjh.web.model.Comment">
+		insert into comment (id,author,postId,content,addDate) values (#{id},#{author},#{postId},#{content},#{addDate})
+	</insert>
+	<update id="updateComment" parameterType="com.hjh.web.model.Comment">
+		update comment set content=#{content} where id=#{id}
+	</update>
+	<delete id="deleteComment">
+		delete from comment where id=#{id}
+	</delete>
+	<delete id="deleteCommentByPostId">
+		delete from comment where postId = #{postId}
+	</delete>
+</mapper>

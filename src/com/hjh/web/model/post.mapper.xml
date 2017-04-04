@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hjh.web.model.PostMapper">
+	<select id="getList" resultType="Post">
+		select * from post order by addDate desc
+	</select>
+	<select id="getListNew" resultType="Post">
+		select * from post order by addDate desc limit 0,5
+	</select>
+	<select id="getListByAuthor" resultType="Post">
+		select * from post where author = #{author} order by addDate desc
+	</select>
+	<select id="getPostById" resultType="Post">
+		select * from post where id = #{id}
+	</select>
+	<insert id="addPost" parameterType="com.hjh.web.model.Post">
+		insert into post (id,author,title,content,pv,addDate) values (#{id},#{author},#{title},#{content},#{pv},#{addDate})
+	</insert>
+	<update id="updatePost" parameterType="com.hjh.web.model.Post">
+		update post set title=#{title},content=#{content} where id=#{id}
+	</update>
+	<delete id="deletePost">
+		delete from post where id=#{id}
+	</delete>
+	<update id="updatePv">
+		update post set pv = pv+1 where id=#{id}
+	</update>
+</mapper>
